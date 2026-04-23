@@ -11,7 +11,7 @@ mongoose.set("strictQuery", false);
 app.use(express.json())
 app.use(cors())
 
-const PORT = 7000 || process.env.PORT
+const PORT = 8000 || process.env.PORT
 
 mongoose
 .connect(process.env.MONGODB_LINK)
