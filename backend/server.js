@@ -3,6 +3,9 @@ const app = express();
 const mongoose = require('mongoose');
 const router = require('./MealRoutes');
 const cors = require('cors');
+const dns = require("dns");
+
+dns.setServers(["1.1.1.1", "8.8.8.8"]);
 
 require('dotenv').config();
 

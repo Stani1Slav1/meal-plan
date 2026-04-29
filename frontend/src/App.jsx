@@ -1,15 +1,24 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { MyMeals } from './MyMeals'
-import { getAllMeals } from './FetchMeals'
+import { getAllMeals, addMeal, editMeal } from './FetchMeals'
 
 function App() {
   
-  const [myMeal, setMeal] = useState([])
+  const [myMeal, setMeal] = useState([]);
+  const [title, setTitle] = useState("");
+  const [editing, setEditing] = useState(false);
+  const [mealId, setMealId] = useState("")
 
   useEffect(() => {
     getAllMeals(setMeal)
   }, [])
+
+  const updatingInInput = (_id, title) => {
+    setEditing(true)
+    setTitle(title)
+    setMealId(_id)
+  }
 
   return (
     <div>
@@ -18,15 +27,19 @@ function App() {
       <input
       type='text'
       placeholder='Add a meal'
+      value={title}
+      onChange={(e) => setTitle(e.target.value)}
       />
 
-      <button>
-        Add
+      <button onClick=
+      {editing ? () => editMeal(mealId, title, setMeal, setTitle, setEditing) : () => addMeal(title, setTitle, setMeal)}>
+      {editing ? "Edit" : "Add"}
       </button>
 
       {/*<MyMeals text="WE GOT HERE!!!"/>*/}
 
-      {myMeal.map((meal) => <MyMeals text={meal.title} key={meal.id}/>
+      {myMeal.map((meal) => <MyMeals text={meal.title} key={meal.id}
+      updatingInInput={() => updatingInInput(meal._id, meal.title)}/>
     )}
 
     </div>
